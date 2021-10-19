@@ -9,8 +9,9 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def login():
-    print(request.method)
     if request.method == "POST":
+        form = request.form
+        print(form)
         email = request.form['email']
         password = request.form['pass']
         print(email, password)
