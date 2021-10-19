@@ -7,14 +7,33 @@ environment = Environment(loader = templates)
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
+        # login 
         form = request.form
         print(form)
         email = request.form['email']
         password = request.form['pass']
         print(email, password)
+
+        # register 
+
+
+        # if all is well go to inicio
+    return render_template("login.html")
+
+@app.route("/", methods=["GET", "POST"])
+def inicio():
+    # chequear el inicio de sesión 
+    return render_template("login.html")
+
+
+@app.route("/perfil", methods=["GET", "POST"])
+def pefil():
+    # chequear el inicio de sesión
+    # redirigir al perfil 
+    # si no se ha iniciado sesión mover a login 
     return render_template("login.html")
 
 if __name__ == "__main__":
