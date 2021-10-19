@@ -10,17 +10,19 @@ conn = pyodbc.connect("Driver={%s};DBQ=%s;" % (DRIVER_NAME, DB_PATH))
 # Crear cursor para ejecutar consultas.
 cursor = conn.cursor()
 
-# Agregar algunos datos.
 usu = "danbehar"
-email = "danielbehar@ufm.edu"
-password = "4515RNya"
+cor = "danielbehar@ufm.edu"
+con = "4515RNya"
+
 # Ejecutar la consulta.
-cursor.execute(u"INSERT INTO Users (Usuario, Correo, Contra VALUES (?, ?, ?)", usu, email, password)
+cursor.execute(u"INSERT INTO Users (Usuario, Correo, Contra) VALUES (?, ?, ?)", usu, cor, con)
 
 # Guardar los cambios.
 cursor.commit()
 # Ejecutar consulta: retornar todas las filas de la tabla empleados.
-q = cursor.execute("SELECT * FROM Users")
+#q = cursor.execute("SELECT * FROM Users")
+#q = cursor.execute("SELECT Usuario FROM Users WHERE id = 1")
+q = cursor.execute("SELECT Usuario FROM Users")
 rows = q.fetchall()
 # Recorrer cada una de las filas e imprimirlas en pantalla.
 if rows is not None:
