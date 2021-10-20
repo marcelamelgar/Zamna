@@ -8,22 +8,25 @@ environment = Environment(loader = templates)
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
+current_user = ""
+
 @app.route("/", methods=["GET", "POST"]) 
 def inicio():
+    global current_user
+    if current_user:
+        print(current_user)
     # chequear el inicio de sesión 
     # hacer solicitud de todas las peticiones 
-    return render_template("login.html")
+    return render_template("inicio.html", user = current_user)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     error = "" 
+    global current_user
 
     if request.method == "POST":
         form = request.form
 
-        # for i in form: 
-        #     print("  ",i, ":", form[i])
-        
         # login 
         if form['submit'] == "login": 
             print("LOGIN")
@@ -35,19 +38,23 @@ def login():
 
         # register
         if form['submit'] == "register":
-            print("REGISTRO") 
-
-            # Verificar que el usuario sea nuevo 
+            print("REGISTRO")
             email = form['regemail']
             password = form['regpass']
             rpassword = form['reregpass']
+            # Verificar que el usuario sea nuevo
+            
             if password and password != rpassword:
                 print(password, rpassword)
                 error = 'Las contraseñas no coinciden'
+                return render_template("login.html", error = error)
             else: 
-                pass
-                # Si todo está bien dirigir inicio         
-                # guardar usuario activo 
+                current_user = email # guarda el usuario activo 
+
+                # crear el usuario en la base de datos 
+                return redirect(url_for('inicio'))
+                
+                       
         
     return render_template("login.html", error = error)
 
