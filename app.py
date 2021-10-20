@@ -16,16 +16,33 @@ def inicio():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        # login 
         form = request.form
-        print(form)
-        email = request.form['email']
-        password = request.form['pass']
-        print(email, password)
 
-        # register 
+        # for i in form: 
+        #     print("  ",i, ":", form[i])
         
-        # if all is well go to inicio
+        # login 
+        if form['submit'] == "login": 
+            print("LOGIN")
+
+            email = form['email']
+            password = form['pass']
+            # Si todo está bien dirigir inicio 
+            # guardar usuario activo 
+
+
+        
+        # register
+        if form['submit'] == "register":
+            print("REGISTRO") 
+
+            # Verificar que el usuario sea nuevo 
+            email = form['regemail']
+            password = form['regpass']
+            rpassword = form['reregpass']
+            # Si todo está bien dirigir inicio         
+            # guardar usuario activo 
+        
     return render_template("login.html")
 
 
