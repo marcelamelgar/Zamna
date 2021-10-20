@@ -30,6 +30,7 @@ def login():
             # Si todo está bien dirigir inicio 
             # guardar usuario activo 
 
+
         # register
         if form['submit'] == "register":
             print("REGISTRO") 
