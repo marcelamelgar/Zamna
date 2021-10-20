@@ -17,13 +17,28 @@ app = Flask(__name__)
 @app.route("/nuser/<user>/<mail>/<passw>")
 def nuser(user, mail, passw):
 
-    cursor.execute(u"INSERT INTO Users (Usuario, Correo, Contra) VALUES (?, ?, ?)", user, mail, passw)
-    cursor.commit()
+    try:
+        cursor.execute(u"INSERT INTO Users (Usuario, Correo, Contra) VALUES (?, ?, ?)", user, mail, passw)
+        cursor.commit()
+
+        return "DONE"
+
+    except pyodbc.IntegrityError:
+        return "ELEMENTO YA EXISTENTE"
+
+@app.route("/confirm/<user>")
+def confirm(user):
+    q = cursor.execute("SELECT ? FROM Users", user)
+    row = q.fetchall()
+    if row is not None:
+        print(row)
+    else:
+        print("No hay datos en la tabla.")
 
     return "DONE"
 
-@app.route("/confirm")
-def confirm():
+@app.route("/todos")
+def todos():
     q = cursor.execute("SELECT Usuario FROM Users")
     rows = q.fetchall()
     if rows is not None:
