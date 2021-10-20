@@ -469,7 +469,7 @@ html {
     
 
       <div class="button login">
-         <button type="submit"><span>GO</span> <i class="fa fa-check"></i></button>
+         <button type="submit" name="submit" value="login" ><span>GO</span> <i class="fa fa-check"></i></button>
       </div>
 
 
@@ -478,7 +478,11 @@ html {
    </div>
 
    
-   <div class="overbox">
+   <div class="overbox" id="identicalForm" 
+      data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+      data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+      data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+
       <div class="material-button alt-2"><span class="shape"></span></div>
 
       <div class="title">REGISTER</div>
@@ -491,18 +495,24 @@ html {
 
       <div class="input">
          <label for="regpass">Password</label>
-         <input type="password" name="regpass" id="regpass">
+         <input type="password" name="regpass" id="regpass"
+                data-bv-identical="true"
+                data-bv-identical-field="reregpass"
+                data-bv-identical-message="The password and its confirm are not the same" >
          <span class="spin"></span>
       </div>
 
       <div class="input">
          <label for="reregpass">Confirm Password</label>
-         <input type="password" name="reregpass" id="reregpass">
+         <input type="password" name="reregpass" id="reregpass"
+                data-bv-identical="true"
+                data-bv-identical-field="reregpass"
+                data-bv-identical-message="The password and its confirm are not the same" >
          <span class="spin"></span>
       </div>
 
       <div class="button">
-         <button type="submit"><span>NEXT</span></button>
+         <button type="submit" name="submit" value="register"><span>NEXT</span></button>
       </div>
     </form>
 
@@ -634,6 +644,36 @@ $(function () {
 });
 //# sourceURL=pen.js
     </script>
+<script>
+  $(document).ready(function() {
+    $('#identicalForm').bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            regpass: {
+                validators: {
+                    identical: {
+                        field: 'reregpass',
+                        message: 'The password and its confirm are not the same'
+                    }
+                }
+            },
+            reregpass: {
+                validators: {
+                    identical: {
+                        field: 'regpass',
+                        message: 'The password and its confirm are not the same'
+                    }
+                }
+            }
+        }
+    });
+});
+
+</script>
 
   
 
