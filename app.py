@@ -1,6 +1,7 @@
 from flask import Flask, render_template, flash, request, url_for, redirect
 from jinja2 import Template, FileSystemLoader, Environment
-
+from requests import get
+ 
 domain = "0.0.0.0:5000/"
 templates = FileSystemLoader('templates')
 environment = Environment(loader = templates)
@@ -35,10 +36,12 @@ def login():
             password = form['pass']
             # Si todo está bien dirigir inicio 
             # guardar usuario activo 
+            return redirect(url_for('inicio'))
 
         # register
         if form['submit'] == "register":
             print("REGISTRO")
+            user = "daniel"
             email = form['regemail']
             password = form['regpass']
             rpassword = form['reregpass']
@@ -47,14 +50,17 @@ def login():
             if password and password != rpassword:
                 print(password, rpassword)
                 error = 'Las contraseñas no coinciden'
-                return render_template("login.html", error = error)
+
             else: 
-                current_user = email # guarda el usuario activo 
+                response = get(f"localhost:8888/nuser/{user}/{email}/{password}")
+                if response == "True":
+                    current_user = user # guarda el usuario activo 
+                    return redirect(url_for('inicio'))
+
+                error = "Ya existe ese usuario, prueba con otro"
+                current_user = ""
 
                 # crear el usuario en la base de datos 
-                return redirect(url_for('inicio'))
-                
-                       
         
     return render_template("login.html", error = error)
 
