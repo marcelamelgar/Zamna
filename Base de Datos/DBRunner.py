@@ -53,7 +53,7 @@ def todos():
 @app.route("/duser/<user>")
 def duser(user):
 
-    cursor.execute(u"DELETE FROM Users VALUES ?", user)
+    cursor.execute(u"DELETE * FROM Users WHERE Usuario = ?", user)
     cursor.commit()
 
     return "DONE"
