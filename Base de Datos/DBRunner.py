@@ -44,6 +44,8 @@ def duser(user):
     return "DONE"
 
 def shutdown_server():
+    cursor.close()
+    conn.close()
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
