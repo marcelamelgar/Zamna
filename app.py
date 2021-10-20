@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, flash, request, url_for, redirect
 from jinja2 import Template, FileSystemLoader, Environment
 
 domain = "0.0.0.0:5000/"
@@ -6,6 +6,7 @@ templates = FileSystemLoader('templates')
 environment = Environment(loader = templates)
 
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 @app.route("/", methods=["GET", "POST"]) 
 def inicio():
@@ -15,6 +16,8 @@ def inicio():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    error = "" 
+
     if request.method == "POST":
         form = request.form
 
@@ -38,10 +41,15 @@ def login():
             email = form['regemail']
             password = form['regpass']
             rpassword = form['reregpass']
-            # Si todo está bien dirigir inicio         
-            # guardar usuario activo 
+            if password and password != rpassword:
+                print(password, rpassword)
+                error = 'Las contraseñas no coinciden'
+            else: 
+                pass
+                # Si todo está bien dirigir inicio         
+                # guardar usuario activo 
         
-    return render_template("login.html")
+    return render_template("login.html", error = error)
 
 
 @app.route("/perfil", methods=["GET", "POST"])

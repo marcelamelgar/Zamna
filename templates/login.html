@@ -447,6 +447,10 @@ html {
 </head>
 
 <body translate="no" >
+  {% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+  {% endif %}
+
   <div class="materialContainer">
 
    <div class="box">
