@@ -10,7 +10,7 @@ cursor = conn.cursor()
 domain = "0.0.0.0:8888/"
 app = Flask(__name__)
 
-#Query para crear un usuario nuevo
+#Query para crear un usuario nuevo (VERIFICADO)
 @app.route("/user/nuevo/<user>/<mail>/<passw>")
 def nuser(user, mail, passw):
 
@@ -24,7 +24,7 @@ def nuser(user, mail, passw):
         return "False"
 
 
-#Query para verificar el inicio de sesion
+#Query para verificar el inicio de sesion (VERIFICADO)
 @app.route("/confirm/<user>/<passw>")
 def confirm(user, passw):
     q = cursor.execute("SELECT Usuario FROM Users WHERE Usuario = ?", user)
@@ -38,8 +38,8 @@ def confirm(user, passw):
         return "False"
 
 
-#Query para crear una peticion
-@app.route("/peticiones/nueva/<desc>/<cat>/<fecha>/<crea>")
+#Query para crear una peticion (VERIFICADO)
+@app.route("/peticiones/nuevo/<desc>/<cat>/<fecha>/<crea>")
 def npeti(desc, cat, fecha, crea):
 
     try:
@@ -47,80 +47,93 @@ def npeti(desc, cat, fecha, crea):
         cursor.execute(u"INSERT INTO Peticion (Descripción, Categoria, Fecha, Creador) VALUES (?, ?, ?, ?)", desc, cat, fecha, crea)
         cursor.commit()
 
-        return "Creado"
+        return "True"
 
     except pyodbc.IntegrityError:
-        return "No Creado"
+        return "False"
 
 
-#Query para ver todas las peticiones
+#Query para ver todas las peticiones (VERIFICADO)
 @app.route("/peticiones")
 def peticiones():
     q = cursor.execute("SELECT * FROM Peticion")
     rows = q.fetchall()
+    lista = []
 
     if rows is not None:
         for row in rows:
-            print(row)
+            peti = dict(zip(range(len(row)), row))
+            lista.append(peti)
     else:
         print("No hay peticiones.")
 
-    return "Todas las peticiones debo cambiarlo a Tupla o Dicci"
+    sali = dict(zip(range(len(lista)), lista))
+    return sali
 
 
-#Query para ver todas las peticiones de una sola categoria
+#Query para ver todas las peticiones de una sola categoria (VERIFICADO)
 @app.route("/peticiones/categoria/<cate>")
 def pet_esp(cate):
     q = cursor.execute("SELECT * FROM Peticion WHERE Categoria = ?", cate)
     rows = q.fetchall()
+    lista = []
 
     if rows is not None:
         for row in rows:
-            print(row)
+            peti = dict(zip(range(len(row)), row))
+            lista.append(peti)
     else:
         print("No hay peticiones de esa categoria.")
 
-    return "Peticiones por cat debo cambiarlo a Tupla o Dicci"
+    sali = dict(zip(range(len(lista)), lista))
+    return sali
 
 
-#Query para ver todas las peticiones de una persona
+#Query para ver todas las peticiones de una persona (VERIFICADO)
 @app.route("/peticiones/creador/<crea>")
 def pet_per(crea):
     q = cursor.execute("SELECT * FROM Peticion WHERE Creador = ?", crea)
     rows = q.fetchall()
+    lista = []
 
     if rows is not None:
         for row in rows:
-            print(row)
+            peti = dict(zip(range(len(row)), row))
+            lista.append(peti)
     else:
         print("No hay peticiones para este usuario.")
 
-    return "Peticiones por usuario debo cambiarlo a Tupla o Dicci"
+    sali = dict(zip(range(len(lista)), lista))
+    return sali
 
 
-#Query para ver una peticion y sus comentarios
+#Query para ver una peticion y sus comentarios (VERIFICADO)
 @app.route("/peticiones/peticion/<id>")
 def pet_comen(id):
     q = cursor.execute("SELECT * FROM Peticion WHERE IDPet = ?", id)
     peti = q.fetchall()
     q = cursor.execute("SELECT * FROM Comentarios WHERE IDPeticion = ?", id)
     comen = q.fetchall()
+    lista = []
 
     if peti is not None:
         for row in peti:
-            print(row)
+            peti = dict(zip(range(len(row)), row))
+            lista.append(peti)
         if comen is not None:
             for row2 in comen:
-                print(row2)
+                peti = dict(zip(range(len(row2)), row2))
+                lista.append(peti)
         else:
             print("No hay comentarios.")
     else:
         print("No existe esta peticion.")
 
-    return "Peticion y comentarios debo cambiarlo a Tupla o Dicci"
+    sali = dict(zip(range(len(lista)), lista))
+    return sali
 
 
-#Query para borrar una peticion y sus comentarios
+#Query para borrar una peticion y sus comentarios (VERIFICADO)
 @app.route("/peticiones/borrar/<id>")
 def dpeti(id):
 
@@ -128,64 +141,71 @@ def dpeti(id):
     cursor.execute(u"DELETE * FROM Comentarios WHERE IDPeticion = ?", id)
     cursor.commit()
 
-    return "DONE"
+    return "True"
 
 
-#Query para borrar un comentario
-@app.route("/comentarios/borrar/<id>")
+#Query para borrar un comentario (VERIFICADO)
+@app.route("/comentario/borrar/<id>")
 def dcomen(id):
 
     cursor.execute(u"DELETE * FROM Comentarios WHERE ID = ?", id)
     cursor.commit()
 
-    return "DONE"
+    return "True"
 
 
-#Query para crear un comentario
-@app.route("/comentario/nueva/<desc>/<fecha>/<crea>/<id>")
+#Query para crear un comentario (VERIFICADO)
+@app.route("/comentario/nuevo/<desc>/<fecha>/<crea>/<id>")
 def ncome(desc, fecha, crea, id):
 
     try:
         #Para la fecha, se recibe: dia-mes-ano incluyendo los guiones
-        cursor.execute(u"INSERT INTO Comentarios (Descripción, Fecha, Creador, IDPeticion) VALUES (?, ?, ?, ?)", desc, fecha, crea, id)
+        cursor.execute(u"INSERT INTO Comentarios (Descripcion, Fecha, Creador, IDPeticion) VALUES (?, ?, ?, ?)", desc, fecha, crea, id)
         cursor.commit()
 
-        return "Creado"
+        return "True"
 
     except pyodbc.IntegrityError:
-        return "No Creado"
+        return "False"
 
 
-#Query para ver todos los comentarios de una persona
-@app.route("/comentarios/creador/<crea>")
+#Query para ver todos los comentarios de una persona (VERIFICADO)
+@app.route("/comentario/creador/<crea>")
 def com_per(crea):
     q = cursor.execute("SELECT * FROM Comentarios WHERE Creador = ?", crea)
     rows = q.fetchall()
+    lista = []
+
     if rows is not None:
         for row in rows:
-            print(row)
+            peti = dict(zip(range(len(row)), row))
+            lista.append(peti)
     else:
         print("No hay comentarios para este usuario.")
 
-    return "Comentarios por usu debo cambiarlo a Tupla o Dicci"
+    sali = dict(zip(range(len(lista)), lista))
+    return sali
 
 
-#Query para ver todas las categorias
+#Query para ver todas las categorias (VERIFICADO)
 @app.route("/categorias")
 def categorias():
     q = cursor.execute("SELECT Categoria FROM Peticion")
     rows = q.fetchall()
+    lista = []
 
     if rows is not None:
         for row in rows:
-            print(row)
+            peti = dict(zip(range(len(row)), row))
+            lista.append(peti)
     else:
         print("No hay categorias.")
 
-    return "Todas las categorias debo cambiarlo a Tupla o Dicci"
+    sali = dict(zip(range(len(lista)), lista))
+    return sali
 
 
-#Query para borrar un usuario
+#Query para borrar un usuario (VERIFICADO)
 @app.route("/user/borrar/<user>")
 def duser(user):
 
@@ -194,10 +214,10 @@ def duser(user):
     cursor.execute(u"DELETE * FROM Comentarios WHERE Creador = ?", user)
     cursor.commit()
 
-    return "DONE"
+    return "True"
 
 
-#Query para apagar el servidor
+#Query para apagar el servidor (VERIFICADO)
 def shutdown_server():
     cursor.close()
     conn.close()
