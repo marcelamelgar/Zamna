@@ -7,8 +7,8 @@ templates = FileSystemLoader('templates')
 environment = Environment(loader = templates)
 
 app = Flask(__name__)
-
 current_user = ""
+
 
 @app.route("/", methods=["GET", "POST"]) 
 def inicio():
@@ -17,13 +17,60 @@ def inicio():
         print(current_user)
     # chequear el inicio de sesión 
     # hacer solicitud de todas las peticiones 
-    return render_template("inicio.html", user = current_user)
+    return render_template("home.html", user = current_user)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     error = "" 
     global current_user
 
+    if request.method == "POST":
+        user = request.form['username']
+        password = request.form['pass']
+        print(user, password)
+
+        # Verificación
+        response = get(f"http://localhost:8888/confirm/{user}/{password}").text
+        print(response)
+
+        if response == "True": 
+            current_user = user
+            return redirect(url_for('inicio'))
+
+        error = "El usuario o la contraseña son incorrectas."
+    
+    return render_template("login.html", error = error)
+
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    error = "" 
+    global current_user
+
+    if request.method == "POST":
+        user = request.form['username']
+        email = request.form['email']
+        password = request.form['pass']
+        password2 = request.form['pass2']
+
+        if password == password2: 
+            response = get(f"http://localhost:8888/user/nuevo/{user}/{email}/{password}").text
+
+            if response == "True": 
+                current_user = user
+                print(current_user, "---\n\n'''n\n\n\nn-------------")
+                return redirect(url_for('inicio')) # redirect(url_for('inicio')
+
+            else: # Si el usuario no existe retorna "False" y se envía el siguiente mensaje 
+                error = "Ya existe un usuario con ese nombre"
+        
+        else:
+            error = "Las constraseñas no coinciden"
+
+    return render_template("register.html", error = error)
+
+"""
     if request.method == "POST":
         form = request.form
 
@@ -35,7 +82,7 @@ def login():
             password = form['pass']
             # Si todo está bien dirigir inicio 
             # guardar usuario activo 
-            return redirect(url_for('inicio'))
+            return redirect("/inicio")
 
         # register
         if form['submit'] == "register":
@@ -60,8 +107,9 @@ def login():
                 current_user = ""
 
                 # crear el usuario en la base de datos 
-        
-    return render_template("login.html", error = error)
+"""
+    
+
 
 
 @app.route("/perfil", methods=["GET", "POST"])

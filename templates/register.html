@@ -4,13 +4,16 @@
 <div class="row">
     <div class="col-md-6">
         <div class="card">
-            <form onsubmit="event.preventDefault()" class="box">
+            <form method="POST" action = "" class="box">
                 <h1 style="color:#EE6C4D">Register</h1>
-                <input type="text" name="Regusername" placeholder="Username"> 
-                <input type="email" name="Regemail" placeholder="Email"> 
-                <input type="password" name="Regpass" placeholder="Password"> 
-                <input type="password" name="RegConfirmpass" placeholder="Confirm Password"> 
-                <input type="submit" name="register" value="Register" href="#">
+                {% if error %}
+                <h3 style="color:#FF0000">{{error}}</h3>
+                {% endif %}
+                <input type="text" name="username" placeholder="Username"> 
+                <input type="email" name="email" placeholder="Email"> 
+                <input type="password" name="pass" placeholder="Password"> 
+                <input type="password" name="pass2" placeholder="Confirm Password"> 
+                <input type="submit" name="register" value="Register">
                 <p class="text-muted" style="color:#98C1D9"> Already have an account? <a class="forgot text-muted" style="color:#E0FBFC" href="/login">Click Here!</a></p>
             </form>
         </div>

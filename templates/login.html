@@ -4,12 +4,15 @@
 <div class="row">
   <div class="col-md-6">
       <div class="card">
-          <form onsubmit="event.preventDefault()" class="box">
+          <form method="POST" action = "" class="box">
               <h1 style="color:#EE6C4D">Login</h1>
+              {% if error %}
+                <h3 style="color:#FF0000">{{error}}</h3>
+              {% endif %}
               <input type="text" name="username" placeholder="Username"> 
               <input type="password" name="pass" placeholder="Password"> 
               <a class="forgot text-muted" href="/rpassword" style="color:#E0FBFC">Forgot password?</a> 
-              <input type="submit" name="login" value="Login" href="#">
+              <input type="submit" name="login" value="Login">
               <p class="text-muted" style="color:#98C1D9"> Don't have an account yet? <a class="forgot text-muted" style="color:#E0FBFC" href="/register">Click Here!</a></p>
           </form>
       </div>

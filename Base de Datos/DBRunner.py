@@ -34,8 +34,8 @@ def confirm(user, passw):
     
     if usu and con[0][0] == passw:
         return "True"
-    else:
-        return "False"
+    
+    return "False"
 
 
 #Query para crear una peticion (VERIFICADO)
