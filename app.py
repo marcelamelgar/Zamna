@@ -79,5 +79,9 @@ def inicio_cate(categoria):
     # Hacer solcitud de las petiones 
     return render_template("login.html")
 
+@app.route("/rpassword", methods=["GET", "POST"]) 
+def reset():
+    return render_template("rpassword.html")
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0",debug=True)
