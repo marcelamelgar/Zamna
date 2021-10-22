@@ -130,13 +130,21 @@ def profile():
     # chequear el home de sesión
     # redirigir al perfil 
     # si no se ha iniciado sesión mover a login 
+
+    if current_user != "":
+        response = get(f"http://localhost:8888/peticiones/peticion/{id}").text
+    else:
+        return redirect(url_for('login'))
+
     return render_template("profile.html")
 
-@app.route("/peticion", methods=["GET", "POST"])
-def peticion():
+@app.route("/peticion/<id>", methods=["GET", "POST"])
+def peticion(id):
     # chequear el home de sesión
     # redirigir al perfil 
     # si no se ha iniciado sesión mover a login 
+    response = get(f"http://localhost:8888/peticiones/peticion/{id}").text
+
     return render_template("peticion.html")
 
 

@@ -37,6 +37,22 @@ def confirm(user, passw):
     
     return "False"
 
+#Query para ver la informacion de una persona
+@app.route("/user/datos/<user>")
+def infoUser(user):
+    q = cursor.execute("SELECT * FROM Users WHERE Usuario = ?", user)
+    rows = q.fetchall()
+    lista = []
+
+    if rows is not None:
+        for row in rows:
+            peti = dict(zip(range(len(row)), row))
+            lista.append(peti)
+    else:
+        print("No hay datos del usuario.")
+
+    sali = dict(zip(range(len(lista)), lista))
+    return sali
 
 #Query para crear una peticion (VERIFICADO)
 @app.route("/peticiones/nuevo/<desc>/<cat>/<fecha>/<crea>")
