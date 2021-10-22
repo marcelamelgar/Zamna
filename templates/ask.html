@@ -9,17 +9,17 @@
               <div class="post-container">
                 <div class="post-detail">
                   <div class="user-info">
-                  <form>
+                  <form method="post" action="">
                     <h5><a class="profile-link" style="color:#3D5A80">Ask for a recommendation!</a></h5>
                   </div>
                   <div class="line-divider"></div>
                   <div class="form-group">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">What is on your mind?</textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment">What is on your mind?</textarea>
                   </div>
                   <div class="line-divider"></div>
                   <div class="post-comment">
                     <img src="/static/cat.jpeg" alt="" class="profile-photo-sm">
-                    <input type="text" class="form-control" placeholder="Type the category name for your request">
+                    <input type="text" class="form-control" placeholder="Type the category name for your request" name="categ">
                     <div class="input-group-append">
                         <input type="submit" name="post" value="Post!">
                     </div>

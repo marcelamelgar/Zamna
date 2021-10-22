@@ -7,7 +7,7 @@ templates = FileSystemLoader('templates')
 environment = Environment(loader = templates)
 
 app = Flask(__name__)
-current_user = "cruz"
+current_user = "marpis"
 
 
 
@@ -54,7 +54,17 @@ def login():
     
     return render_template("login.html", error = error)
 
+@app.route("/nueva_peticion", methods=["GET", "POST"])
+def nueva_peticion():
+    global current_user
 
+    if request.method == "POST":
+        categ = request.form['categ']
+        comment = request.form['comment']
+        get(f"http://localhost:8888/peticiones/nuevo/{comment}/{categ}/{current_user}")
+        return redirect(url_for('home'))
+
+    return render_template("ask.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -82,68 +92,24 @@ def register():
             error = "Las constraseñas no coinciden"
 
     return render_template("register.html", error = error)
-
-"""
-    if request.method == "POST":
-        form = request.form
-
-        # login 
-        if form['submit'] == "login": 
-            print("LOGIN")
-
-            email = form['email']
-            password = form['pass']
-            # Si todo está bien dirigir home 
-            # guardar usuario activo 
-            return redirect("/home")
-
-        # register
-        if form['submit'] == "register":
-            print("REGISTRO")
-            user = "daniel"
-            email = form['regemail']
-            password = form['regpass']
-            rpassword = form['reregpass']
-            # Verificar que el usuario sea nuevo
-            
-            if password and password != rpassword:
-                print(password, rpassword)
-                error = 'Las contraseñas no coinciden'
-
-            else: 
-                response = get(f"localhost:8888/nuser/{user}/{email}/{password}")
-                if response == "True":
-                    current_user = user # guarda el usuario activo 
-                    return redirect(url_for('home'))
-
-                error = "Ya existe ese usuario, prueba con otro"
-                current_user = ""
-
-                # crear el usuario en la base de datos 
-"""
     
-
-
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
-    # chequear el home de sesión
-    # redirigir al perfil 
-    # si no se ha iniciado sesión mover a login 
+    global current_user
 
     if current_user != "":
-        response = get(f"http://localhost:8888/peticiones/peticion/{id}").text
+        pet_perso = eval(get(f"http://localhost:8888/peticiones/creador/{current_user}").text)
+        com_perso = eval(get(f"http://localhost:8888/comentario/creador/{current_user}").text)
+        info = eval(get(f"http://localhost:8888/user/datos/{current_user}").text)
     else:
         return redirect(url_for('login'))
 
-    return render_template("profile.html")
+    return render_template("profile.html", info = info, pet_perso = pet_perso, com_perso = com_perso)
 
 @app.route("/peticion/<id>", methods=["GET", "POST"])
 def peticion(id):
     global current_user
-    # chequear el home de sesión
-    # redirigir al perfil 
-    # si no se ha iniciado sesión mover a login 
     
     if request.method == "POST":
         comment = request.form['comment']

@@ -56,8 +56,9 @@ def infoUser(user):
     return sali
 
 #Query para crear una peticion (VERIFICADO)
-@app.route("/peticiones/nuevo/<desc>/<cat>/<fecha>/<crea>")
-def npeti(desc, cat, fecha, crea):
+@app.route("/peticiones/nuevo/<desc>/<cat>/<crea>")
+def npeti(desc, cat, crea):
+    fecha = "22-10-2021"
 
     try:
         #Para la fecha, se recibe: dia-mes-ano incluyendo los guiones
