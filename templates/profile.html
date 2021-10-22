@@ -23,6 +23,11 @@
                             <h6>
                                 {{info['0']['1']}}
                             </h6>
+                            <form method="POST" action = "" class="box">
+                                <div class="input-group-append">
+                                    <button type="submit" name="delete" value="u{{info['0']['0']}}" class="btn btn-danger">Delete</button>
+                                </div>  
+                            </form>  
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Petitions</a>
@@ -40,6 +45,7 @@
                     <a href="">{{info['0']['0']}}</a><br/>
                     <a href="">{{info['0']['1']}}</a><br/>
                     <a href="">{{info['0']['2']}}</a>
+                    
                 </div>
             </div>
             <div class="col-md-8">
@@ -51,9 +57,11 @@
                                     <div class="panel panel-default" style="width: 90%;">
                                         <div class="panel-heading">{{pet_perso[i]['1']}}</div>
                                         <div class="panel-body">{{pet_perso[i]['4']}}
-                                            <div class="input-group-append">
-                                                <input type="submit" name="post" value="Delete!" style = "position:relative; left:290px;">
-                                            </div>  
+                                            <form method="POST" action = "" class="box">
+                                                <div class="input-group-append">
+                                                    <button type="submit" name="delete" value="p{{pet_perso[i]['0']}}" class="btn btn-danger" style = "position:relative; left:290px;">Delete</button>
+                                                </div>  
+                                            </form>
                                         </div>
                                     </div>    
                                 </div>
@@ -67,9 +75,11 @@
                                 <div class="panel panel-default" style="width: 90%;">
                                     <div class="panel-heading">{{com_perso[j]['1']}}</div>
                                     <div class="panel-body">{{com_perso[j]['4']}}
-                                        <div class="input-group-append">
-                                            <input type="submit" name="post" value="Delete!" style = "position:relative; left:290px;">
-                                        </div>  
+                                        <form method="POST" action = "" class="box">
+                                            <div class="input-group-append">
+                                                <button type="submit" name="delete" value="c{{com_perso[j]['0']}}" class="btn btn-danger" style = "position:relative; left:290px;">Delete</button>
+                                            </div>  
+                                        </form>  
                                     </div>
                                 </div>    
                             </div>

@@ -7,7 +7,7 @@ templates = FileSystemLoader('templates')
 environment = Environment(loader = templates)
 
 app = Flask(__name__)
-current_user = "marpis"
+current_user = ""
 
 
 
@@ -97,6 +97,25 @@ def register():
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
     global current_user
+    
+    if request.method == "POST":
+        delete = request.form['delete']
+
+        if delete[0] == 'p':
+            id = int(delete[1:])
+            print(id)
+            get(f"http://localhost:8888/peticiones/borrar/{id}")            
+
+        if delete[0] == 'c':
+            id = int(delete[1:])
+            print(id)
+            get(f"http://localhost:8888/comentario/borrar/{id}")
+            
+        if delete[0] == 'u':
+            user = delete[1:]
+            print(user)
+            get(f"http://localhost:8888/user/borrar/{user}")
+            current_user = ""
 
     if current_user != "":
         pet_perso = eval(get(f"http://localhost:8888/peticiones/creador/{current_user}").text)

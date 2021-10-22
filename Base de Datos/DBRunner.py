@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, url_for, redirect
 from os import getcwd
 import pyodbc
 import datetime
+from requests import get
+
 
 DRIVER_NAME = "Microsoft Access Driver (*.mdb, *.accdb)"
 DB_PATH = getcwd() + "/Zamna.accdb"
@@ -228,9 +230,18 @@ def categorias():
 @app.route("/user/borrar/<user>")
 def duser(user):
 
+    peticiones = eval(get(f"http://localhost:8888/peticiones/creador/{user}").text)
+    print(peticiones)
+
+    for i in peticiones: 
+        print(int(peticiones[i]['0']))
+        cursor.execute(u"DELETE * FROM Peticion WHERE IDPet = ?", int(peticiones[i]['0']))
+        cursor.execute(u"DELETE * FROM Comentarios WHERE IDPeticion = ?", int(peticiones[i]['0']))
+
     cursor.execute(u"DELETE * FROM Users WHERE Usuario = ?", user)
     cursor.execute(u"DELETE * FROM Peticion WHERE Creador = ?", user)
     cursor.execute(u"DELETE * FROM Comentarios WHERE Creador = ?", user)
+
     cursor.commit()
 
     return "True"
