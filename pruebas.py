@@ -1,3 +1,3 @@
-from requests import get 
+import datetime
 
-print(get("http://localhost:8888/peticiones").text)
+print(datetime.now())

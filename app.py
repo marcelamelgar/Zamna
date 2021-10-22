@@ -7,7 +7,7 @@ templates = FileSystemLoader('templates')
 environment = Environment(loader = templates)
 
 app = Flask(__name__)
-current_user = ""
+current_user = "cruz"
 
 
 
@@ -140,12 +140,20 @@ def profile():
 
 @app.route("/peticion/<id>", methods=["GET", "POST"])
 def peticion(id):
+    global current_user
     # chequear el home de sesión
     # redirigir al perfil 
     # si no se ha iniciado sesión mover a login 
-    response = get(f"http://localhost:8888/peticiones/peticion/{id}").text
+    
+    if request.method == "POST":
+        comment = request.form['comment']
+        get(f"http://localhost:8888/comentario/nuevo/{comment}/{current_user}/{id}")
+        print(comment)
 
-    return render_template("peticion.html")
+    response = eval(get(f"http://localhost:8888/peticiones/peticion/{id}").text)
+    print(response)
+
+    return render_template("peticion.html", response = response)
 
 
 @app.route("/<categoria>", methods=["GET", "POST"]) 

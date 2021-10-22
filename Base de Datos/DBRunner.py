@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, url_for, redirect
 from os import getcwd
 import pyodbc
+import datetime
 
 DRIVER_NAME = "Microsoft Access Driver (*.mdb, *.accdb)"
 DB_PATH = getcwd() + "/Zamna.accdb"
@@ -171,8 +172,9 @@ def dcomen(id):
 
 
 #Query para crear un comentario (VERIFICADO)
-@app.route("/comentario/nuevo/<desc>/<fecha>/<crea>/<id>")
-def ncome(desc, fecha, crea, id):
+@app.route("/comentario/nuevo/<desc>/<crea>/<id>")
+def ncome(desc, crea, id):
+    fecha = "22-10-2021"
 
     try:
         #Para la fecha, se recibe: dia-mes-ano incluyendo los guiones
