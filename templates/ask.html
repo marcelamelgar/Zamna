@@ -1,0 +1,34 @@
+{% extends 'layoutp.html' %}
+
+{% block body %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container" style = "position:relative; left:190px; top:50px;">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="post-content">
+              <div class="post-container">
+                <div class="post-detail">
+                  <div class="user-info">
+                  <form>
+                    <h5><a class="profile-link" style="color:#3D5A80">Ask for a recommendation!</a></h5>
+                  </div>
+                  <div class="line-divider"></div>
+                  <div class="form-group">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">What is on your mind?</textarea>
+                  </div>
+                  <div class="line-divider"></div>
+                  <div class="post-comment">
+                    <img src="/static/cat.jpeg" alt="" class="profile-photo-sm">
+                    <input type="text" class="form-control" placeholder="Type the category name for your request">
+                    <div class="input-group-append">
+                        <input type="submit" name="post" value="Post!">
+                    </div>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
