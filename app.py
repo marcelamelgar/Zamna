@@ -10,14 +10,27 @@ app = Flask(__name__)
 current_user = ""
 
 
+
 @app.route("/", methods=["GET", "POST"]) 
-def inicio():
+def home():
     global current_user
-    if current_user:
-        print(current_user)
-    # chequear el inicio de sesión 
-    # hacer solicitud de todas las peticiones 
-    return render_template("home.html", user = current_user)
+    peticiones = eval(get(f"http://localhost:8888/peticiones").text)
+    categorias = eval(get(f"http://localhost:8888/categorias").text)
+    # eval, la funcion de los dioses de python *explosión mental*
+
+    if request.method == "POST":
+        id = request.form['id']
+        print(id)
+        print(id)
+        print(id)
+        print(id)
+        print(id)
+        print(id)
+
+    return render_template("home.html", 
+            user = current_user, 
+            peticiones = peticiones,
+            categorias = categorias)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -35,7 +48,7 @@ def login():
 
         if response == "True": 
             current_user = user
-            return redirect(url_for('inicio'))
+            return redirect(url_for('home'))
 
         error = "El usuario o la contraseña son incorrectas."
     
@@ -60,7 +73,7 @@ def register():
             if response == "True": 
                 current_user = user
                 print(current_user, "---\n\n'''n\n\n\nn-------------")
-                return redirect(url_for('inicio')) # redirect(url_for('inicio')
+                return redirect(url_for('home')) # redirect(url_for('home')
 
             else: # Si el usuario no existe retorna "False" y se envía el siguiente mensaje 
                 error = "Ya existe un usuario con ese nombre"
@@ -80,9 +93,9 @@ def register():
 
             email = form['email']
             password = form['pass']
-            # Si todo está bien dirigir inicio 
+            # Si todo está bien dirigir home 
             # guardar usuario activo 
-            return redirect("/inicio")
+            return redirect("/home")
 
         # register
         if form['submit'] == "register":
@@ -101,7 +114,7 @@ def register():
                 response = get(f"localhost:8888/nuser/{user}/{email}/{password}")
                 if response == "True":
                     current_user = user # guarda el usuario activo 
-                    return redirect(url_for('inicio'))
+                    return redirect(url_for('home'))
 
                 error = "Ya existe ese usuario, prueba con otro"
                 current_user = ""
@@ -114,26 +127,39 @@ def register():
 
 @app.route("/perfil", methods=["GET", "POST"])
 def pefil():
-    # chequear el inicio de sesión
+    # chequear el home de sesión
     # redirigir al perfil 
     # si no se ha iniciado sesión mover a login 
     return render_template("login.html")
 
 
 @app.route("/<categoria>", methods=["GET", "POST"]) 
-def inicio_cate(categoria):
-    print(categoria)
-    # chequear el inicio de sesión
-    # Hacer solcitud de las petiones 
-    return render_template("login.html")
+def home_cate(categoria):
+    global current_user
+    peticiones = eval(get(f"http://localhost:8888/peticiones/categoria/{categoria}").text)
+    categorias = eval(get(f"http://localhost:8888/categorias").text)
+    # eval, la función maestra de pyhton *explosión mental*
+
+    if request.method == "POST":
+        id = request.form['id']
+        print(id)
+        print(id)
+        print(id)
+        print(id)
+        print(id)
+        print(id)
+
+    return render_template("home.html",
+        user=current_user, 
+        peticiones=peticiones, 
+        categoria=categoria, 
+        categorias = categorias)
 
 @app.route("/rpassword", methods=["GET", "POST"]) 
 def reset():
     return render_template("rpassword.html")
 
-@app.route("/home", methods=["GET", "POST"]) 
-def home():
-    return render_template("home.html")
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",debug=True)

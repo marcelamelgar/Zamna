@@ -3,6 +3,7 @@
 <head>
     <title>Zamna</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 body {
   font-family: "Lato", sans-serif;
@@ -155,11 +156,14 @@ body {
 <body>
 
 <div class="sidenav">
-    <a href="#"class="circle" style="text-align: center">{{username}}</a><br>
-    <a href="#">Restaurants</a>
-    <a href="#">Technology</a>
-    <a href="#">Automotive</a>
-    <a href="#">Home</a>
+    <a href="/perfil" class="circle">{{user}}</a>
+    <a href="/">Home</a>
+    {% if categorias %}
+        {% for j in categorias %}
+            <a href="/{{categorias[j]['0']}}">{{categorias[j]['0']}}</a>
+        {% endfor %}
+    {% endif %}
+
 </div>
 
 <div class="main">
