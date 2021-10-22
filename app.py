@@ -125,12 +125,19 @@ def register():
 
 
 
-@app.route("/perfil", methods=["GET", "POST"])
-def pefil():
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
     # chequear el home de sesión
     # redirigir al perfil 
     # si no se ha iniciado sesión mover a login 
-    return render_template("login.html")
+    return render_template("profile.html")
+
+@app.route("/peticion", methods=["GET", "POST"])
+def peticion():
+    # chequear el home de sesión
+    # redirigir al perfil 
+    # si no se ha iniciado sesión mover a login 
+    return render_template("peticion.html")
 
 
 @app.route("/<categoria>", methods=["GET", "POST"]) 
