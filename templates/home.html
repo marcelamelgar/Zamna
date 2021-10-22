@@ -3,23 +3,76 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.3/css/mdb.min.css" />
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
 
-<!-- Home -->
-<div class="w3-container" id="home" style="margin-top: 75px;">
-    {% if categoria %}
-    <h1 class="w3-xxxlarge" style="color: #ee6c4d;"><strong>{{categoria}}</strong></h1>
-    {% else %}
-    <h1 class="w3-xxxlarge" style="color: #ee6c4d;"><strong>Home: Todas las categorías</strong></h1>
-    {% endif %}
-    <br />
-    <br />
-    <!-- Card
-        <div class="card">
-            <div class="card-body">
-                <div class="panel">
-                    <div class="panel-body">
-                        <textarea class="form-control" rows="1" placeholder="Ask for a recomendation!"></textarea>
-                        <div class="mar-top clearfix">
-                            <button class="btn btn-sm btn-primary pull-right" type="submit" style="color:#EE6C4D;"></i> Share</button><br>
+  <div class="w3-container" id="home" style="margin-top:75px;">
+    <h1 class="w3-xxxlarge" style="color:#EE6C4D"><strong>Today's Feed</strong></h1>
+      <br><br>
+      <!--Card-->
+    <div class="card">
+        <!--Card content-->
+        <div class="card-body">
+            <!--Text-->
+            <div class="panel">
+                <div class="panel-body">
+                  <textarea class="form-control" rows="1" placeholder="Ask for a recomendation!"></textarea>
+                    <div class="input-group-append">
+                        <input type="submit" name="post" value="Post!">
+                    </div>
+                </div>
+              </div>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <!--Card content-->
+        <div class="card-body">
+            <!--Text-->
+            <div class="panel">
+                <div class="panel-body">
+                <!-- Newsfeed Content -->
+                <!--===================================================-->
+                <div class="media-block">
+                    <div class="media-body">
+                        <div class="mar-btm">
+                            <a href="#" class="btn-link text-semibold media-heading box-inline">Lisa D.</a>
+                            <p class="text-muted text-sm">{{category}}</p>
+                        </div>
+                        <p>consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                        <div class="pad-ver">
+                        </div>
+                        <hr>
+                        <input type="text" class="form-control" placeholder="Post a comment">
+                        <div class="input-group-append">
+                        <input type="submit" name="post" value="Post!">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!--/.Card-->
+    <br>
+    <div class="card">
+        <!--Card content-->
+        <div class="card-body">
+            <!--Text-->
+            <div class="panel">
+                <div class="panel-body">
+                <!-- Newsfeed Content -->
+                <!--===================================================-->
+                <div class="media-block">
+                    <div class="media-body">
+                        <div class="mar-btm">
+                            <a href="#" class="btn-link text-semibold media-heading box-inline">Lisa D.</a>
+                            <p class="text-muted text-sm">{{category}}</p>
+                        </div>
+                        <p>consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                        <div class="pad-ver">
+                        </div>
+                        <hr>
+                        <input type="text" class="form-control" placeholder="Post a comment">
+                        <div class="input-group-append">
+                        <input type="submit" name="post" value="Post!">
                         </div>
                     </div>
                 </div>
@@ -54,6 +107,11 @@
                                     </form>
                                 </div>
                             </div>
+                        </div>
+                        <hr>
+                        <input type="text" class="form-control" placeholder="Post a comment">
+                        <div class="input-group-append">
+                        <input type="submit" name="post" value="Post!">
                         </div>
                     </div>
                 </div>
