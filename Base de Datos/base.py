@@ -5,7 +5,7 @@ from requests import get
 
 
 DRIVER_NAME = "Microsoft Access Driver (*.mdb, *.accdb)"
-DB_PATH = getcwd() + "/Pruebas.accdb"
+DB_PATH = getcwd() + "/Zamna.accdb"
 conn = pyodbc.connect("Driver={%s};DBQ=%s;" % (DRIVER_NAME, DB_PATH))
 cursor = conn.cursor()
 
