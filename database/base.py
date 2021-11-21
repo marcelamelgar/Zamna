@@ -5,7 +5,15 @@ from requests import get
 
 
 DRIVER_NAME = "Microsoft Access Driver (*.mdb, *.accdb)"
-DB_PATH = getcwd() + "/Zamna.accdb"
+DB_PATH = getcwd() 
+
+if DB_PATH[len(DB_PATH)-5:] == "Zamna": 
+    print(DB_PATH[len(DB_PATH)-5:])
+    DB_PATH = DB_PATH + "\database"
+
+DB_PATH = DB_PATH + "/Zamna.accdb"
+print(DB_PATH)
+
 conn = pyodbc.connect("Driver={%s};DBQ=%s;" % (DRIVER_NAME, DB_PATH))
 cursor = conn.cursor()
 
@@ -226,3 +234,6 @@ def duser(user):
     cursor.commit()
 
     return "True"
+
+
+#print(confirm("daniel", "1234mayuscula"))

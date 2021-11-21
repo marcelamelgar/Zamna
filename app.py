@@ -1,6 +1,7 @@
 from flask import Flask, render_template, flash, request, url_for, redirect
 from jinja2 import Template, FileSystemLoader, Environment
 from requests import get
+import database.base as db 
  
 domain = "0.0.0.0:5000/"
 templates = FileSystemLoader('templates')
@@ -9,7 +10,7 @@ environment = Environment(loader = templates)
 app = Flask(__name__)
 current_user = ""
 
-
+print(db.confirm("daniel", "1234mayuscula")) #Prueba de que la base de datos está funcionando como función :) felicidad! 
 
 @app.route("/", methods=["GET", "POST"]) 
 def home():
