@@ -11,9 +11,8 @@
     {% endif %}
       <br><br>
     
-    
-    {% if peticiones %}
-        {% for j in peticiones %}
+    {% if petitions %}
+        {% for j in petitions %}
             <!-- Inicio de card -->
             <div class="card">
                 <!--Card content-->
@@ -26,16 +25,16 @@
                             <div class="media-block">
                                 <div class="media-body">
                                     <div class="mar-btm">
-                                        <a href="#" class="btn-link text-semibold media-heading box-inline">{{peticiones[j]['4']}}</a>
-                                        <p class="text-muted text-sm">{{peticiones[j]['2']}}</p>
+                                        <a href="#" class="btn-link text-semibold media-heading box-inline">{{petitions[j][4]}}</a>
+                                        <p class="text-muted text-sm">{{petitions[j][2]}}</p>
                                     </div>
                                     <p>
-                                        {{peticiones[j]['1']}}
+                                        {{petitions[j][1]}}
                                     </p>
                                     <div class="pad-ver"></div>
                                     <hr />
                                     
-                                    <a class="btn btn-sm btn-primary pull-right" type="submit" style="color:#EE6C4D;" name = "id" href= "/peticion/{{peticiones[j]['0']}}"></i>Abrir</a>
+                                    <a class="btn btn-sm btn-primary pull-right" type="submit" style="color:#EE6C4D;" name = "id" href= "/peticion/{{petitions[j][0]}}"></i>Abrir</a>
                                     
                                 </div>
                             </div>

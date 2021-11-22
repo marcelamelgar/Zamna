@@ -180,7 +180,7 @@ input[type="submit"]:hover {
     <a href="/">Home</a>
     {% if categorias %}
         {% for j in categorias %}
-            <a href="/{{categorias[j]['0']}}">{{categorias[j]['0']}}</a>
+            <a href="/{{categorias[j][0]}}">{{categorias[j][0]}}</a>
         {% endfor %}
     {% endif %}
 

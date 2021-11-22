@@ -1,6 +1,7 @@
 from flask import Flask, render_template, flash, request, url_for, redirect
 from jinja2 import Template, FileSystemLoader, Environment
 from requests import get
+import datetime
 from database.base import nuser, confirm, infoUser, npeti, peticiones, pet_esp, pet_per, pet_comen, dpeti, dcomen, ncome, com_per, categorias, duser
  
 domain = "0.0.0.0:5000/"
@@ -13,15 +14,17 @@ current_user = ""
 @app.route("/", methods=["GET", "POST"]) 
 def home():
     global current_user
-    petitions = eval(get(f"http://localhost:8888/peticiones").text)
-    categories = eval(get(f"http://localhost:8888/categorias").text)
+    petitions = peticiones()
+    petitions = eval(petitions)
+    categories = categorias()
+    categories = eval(categories)
 
     if request.method == "POST":
         id = request.form['id']
 
     return render_template("home.html", 
             user = current_user, 
-            peticiones = petitions,
+            petitions = petitions,
             categorias = categories)
 
 @app.route("/login", methods=["GET", "POST"])

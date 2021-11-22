@@ -84,7 +84,7 @@ def peticiones():
         print("No hay peticiones.")
 
     sali = dict(zip(range(len(lista)), lista))
-    return sali
+    return str(sali)
 
 
 #Query para ver todas las peticiones de una sola categoria (VERIFICADO)
@@ -211,7 +211,7 @@ def categorias():
         print("No hay categorias.")
 
     sali = dict(zip(range(len(lista)), lista))
-    return sali
+    return str(sali)
 
 
 #Query para borrar un usuario (VERIFICADO)
@@ -233,3 +233,5 @@ def duser(user):
 
 
 #print(confirm("daniel", "1234mayuscula"))
+
+#print(type(eval(peticiones())))
