@@ -1,7 +1,7 @@
 from flask import Flask, render_template, flash, request, url_for, redirect
 from jinja2 import Template, FileSystemLoader, Environment
 from requests import get
-import database.base as db 
+from database.base import nuser, confirm, infoUser, npeti, peticiones, pet_esp, pet_per, pet_comen, dpeti, dcomen, ncome, com_per, categorias, duser
  
 domain = "0.0.0.0:5000/"
 templates = FileSystemLoader('templates')
@@ -10,28 +10,19 @@ environment = Environment(loader = templates)
 app = Flask(__name__)
 current_user = ""
 
-print(db.confirm("daniel", "1234mayuscula")) #Prueba de que la base de datos está funcionando como función :) felicidad! 
-
 @app.route("/", methods=["GET", "POST"]) 
 def home():
     global current_user
-    peticiones = eval(get(f"http://localhost:8888/peticiones").text)
-    categorias = eval(get(f"http://localhost:8888/categorias").text)
-    # eval, la funcion de los dioses de python *explosión mental*
+    petitions = eval(get(f"http://localhost:8888/peticiones").text)
+    categories = eval(get(f"http://localhost:8888/categorias").text)
 
     if request.method == "POST":
         id = request.form['id']
-        print(id)
-        print(id)
-        print(id)
-        print(id)
-        print(id)
-        print(id)
 
     return render_template("home.html", 
             user = current_user, 
-            peticiones = peticiones,
-            categorias = categorias)
+            peticiones = petitions,
+            categorias = categories)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -41,13 +32,11 @@ def login():
     if request.method == "POST":
         user = request.form['username']
         password = request.form['pass']
-        print(user, password)
 
         # Verificación
-        response = get(f"http://localhost:8888/confirm/{user}/{password}").text
-        print(response)
+        response = confirm(user, password)
 
-        if response == "True": 
+        if response == "True":
             current_user = user
             return redirect(url_for('home'))
 
@@ -62,7 +51,7 @@ def nueva_peticion():
     if request.method == "POST":
         categ = request.form['categ']
         comment = request.form['comment']
-        get(f"http://localhost:8888/peticiones/nuevo/{comment}/{categ}/{current_user}")
+        npeti(comment, categ, current_user)
         return redirect(url_for('home'))
 
     return render_template("ask.html")
@@ -79,11 +68,10 @@ def register():
         password2 = request.form['pass2']
 
         if password == password2: 
-            response = get(f"http://localhost:8888/user/nuevo/{user}/{email}/{password}").text
+            response = nuser(user, email, password)            
 
             if response == "True": 
                 current_user = user
-                print(current_user, "---\n\n'''n\n\n\nn-------------")
                 return redirect(url_for('home')) # redirect(url_for('home')
 
             else: # Si el usuario no existe retorna "False" y se envía el siguiente mensaje 
@@ -104,18 +92,15 @@ def profile():
 
         if delete[0] == 'p':
             id = int(delete[1:])
-            print(id)
-            get(f"http://localhost:8888/peticiones/borrar/{id}")            
+            dpeti(id)           
 
         if delete[0] == 'c':
             id = int(delete[1:])
-            print(id)
-            get(f"http://localhost:8888/comentario/borrar/{id}")
+            dcomen(id)
             
         if delete[0] == 'u':
             user = delete[1:]
-            print(user)
-            get(f"http://localhost:8888/user/borrar/{user}")
+            duser(user)
             current_user = ""
 
     if current_user != "":
@@ -133,11 +118,9 @@ def peticion(id):
     
     if request.method == "POST":
         comment = request.form['comment']
-        get(f"http://localhost:8888/comentario/nuevo/{comment}/{current_user}/{id}")
-        print(comment)
+        ncome(comment, current_user, id)
 
     response = eval(get(f"http://localhost:8888/peticiones/peticion/{id}").text)
-    print(response)
 
     return render_template("peticion.html", response = response)
 
@@ -147,16 +130,9 @@ def home_cate(categoria):
     global current_user
     peticiones = eval(get(f"http://localhost:8888/peticiones/categoria/{categoria}").text)
     categorias = eval(get(f"http://localhost:8888/categorias").text)
-    # eval, la función maestra de pyhton *explosión mental*
 
     if request.method == "POST":
         id = request.form['id']
-        print(id)
-        print(id)
-        print(id)
-        print(id)
-        print(id)
-        print(id)
 
     return render_template("home.html",
         user=current_user, 
@@ -167,7 +143,6 @@ def home_cate(categoria):
 @app.route("/rpassword", methods=["GET", "POST"]) 
 def reset():
     return render_template("rpassword.html")
-
 
 
 if __name__ == "__main__":
