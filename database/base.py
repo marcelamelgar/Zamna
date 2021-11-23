@@ -5,13 +5,14 @@ import datetime
 DRIVER_NAME = "Microsoft Access Driver (*.mdb, *.accdb)"
 DB_PATH = getcwd() 
 
-if DB_PATH[len(DB_PATH)-5:] == "Zamna":
-    DB_PATH = DB_PATH + "\database"
-
-DB_PATH = DB_PATH + "/Zamna.accdb"
+if DB_PATH[len(DB_PATH)-5:] == "Zamna": # Si se está ejecutando en app.py se utiliza base de datos Zamna 
+    DB_PATH = DB_PATH + "\database/Zamna.accdb"
+else: 
+    DB_PATH = DB_PATH + "/Pruebas.accdb" # Si se está ejecutando desde unitest se abre la base de datos de prueba
 
 conn = pyodbc.connect("Driver={%s};DBQ=%s;" % (DRIVER_NAME, DB_PATH))
 cursor = conn.cursor()
+
 
 #Query para crear un usuario nuevo (VERIFICADO)
 def nuser(user, mail, passw):

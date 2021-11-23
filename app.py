@@ -1,8 +1,8 @@
 from flask import Flask, render_template, flash, request, url_for, redirect
 from jinja2 import Template, FileSystemLoader, Environment
-from requests import get
+# from requests import get
 import datetime
-from database.base import nuser, confirm, infoUser, npeti, peticiones, pet_esp, pet_per, pet_comen, dpeti, dcomen, ncome, com_per, categorias, duser
+from database.base import *
  
 domain = "0.0.0.0:5000/"
 templates = FileSystemLoader('templates')
