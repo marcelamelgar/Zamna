@@ -107,9 +107,9 @@ def profile():
             current_user = ""
 
     if current_user != "":
-        pet_perso = eval(get(f"http://localhost:8888/peticiones/creador/{current_user}").text)
-        com_perso = eval(get(f"http://localhost:8888/comentario/creador/{current_user}").text)
-        info = eval(get(f"http://localhost:8888/user/datos/{current_user}").text)
+        pet_perso = eval(pet_per(current_user))
+        com_perso = eval(com_per(current_user))
+        info = eval(infoUser(current_user))
     else:
         return redirect(url_for('login'))
 
@@ -123,7 +123,7 @@ def peticion(id):
         comment = request.form['comment']
         ncome(comment, current_user, id)
 
-    response = eval(get(f"http://localhost:8888/peticiones/peticion/{id}").text)
+    response = eval(pet_comen(id))
 
     return render_template("peticion.html", response = response)
 
@@ -131,17 +131,17 @@ def peticion(id):
 @app.route("/<categoria>", methods=["GET", "POST"]) 
 def home_cate(categoria):
     global current_user
-    peticiones = eval(get(f"http://localhost:8888/peticiones/categoria/{categoria}").text)
-    categorias = eval(get(f"http://localhost:8888/categorias").text)
+    petitions = eval(pet_esp(categoria))
+    categories = eval(categorias())
 
     if request.method == "POST":
         id = request.form['id']
 
     return render_template("home.html",
         user=current_user, 
-        peticiones=peticiones, 
+        petitions=petitions, 
         categoria=categoria, 
-        categorias = categorias)
+        categorias = categories)
 
 @app.route("/rpassword", methods=["GET", "POST"]) 
 def reset():

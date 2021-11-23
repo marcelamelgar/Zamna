@@ -53,7 +53,7 @@ def infoUser(user):
         return "No hay datos del usuario."
 
     sali = dict(zip(range(len(lista)), lista))
-    return sali
+    return str(sali)
 
 #Query para crear una peticion (VERIFICADO)
 def npeti(desc, cat, crea):
@@ -101,7 +101,7 @@ def pet_esp(cate):
         print("No hay peticiones de esa categoria.")
 
     sali = dict(zip(range(len(lista)), lista))
-    return sali
+    return str(sali)
 
 
 #Query para ver todas las peticiones de una persona (VERIFICADO)
@@ -118,7 +118,7 @@ def pet_per(crea):
         print("No hay peticiones para este usuario.")
 
     sali = dict(zip(range(len(lista)), lista))
-    return sali
+    return str(sali)
 
 
 #Query para ver una peticion y sus comentarios (VERIFICADO)
@@ -143,7 +143,7 @@ def pet_comen(id):
         print("No existe esta peticion.")
 
     sali = dict(zip(range(len(lista)), lista))
-    return sali
+    return str(sali)
 
 
 #Query para borrar una peticion y sus comentarios (VERIFICADO)
@@ -194,12 +194,12 @@ def com_per(crea):
         print("No hay comentarios para este usuario.")
 
     sali = dict(zip(range(len(lista)), lista))
-    return sali
+    return str(sali)
 
 
 #Query para ver todas las categorias (VERIFICADO)
 def categorias():
-    q = cursor.execute("SELECT Categoria FROM Peticion")
+    q = cursor.execute("SELECT DISTINCT Categoria FROM Peticion")
     rows = q.fetchall()
     lista = []
 

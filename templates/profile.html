@@ -18,14 +18,14 @@
             <div class="col-md-6">
                 <div class="profile-head">
                             <h5>
-                                {{info['0']['0']}}
+                                {{info[0][0]}}
                             </h5>
                             <h6>
-                                {{info['0']['1']}}
+                                {{info[0][1]}}
                             </h6>
                             <form method="POST" action = "" class="box">
                                 <div class="input-group-append">
-                                    <button type="submit" name="delete" value="u{{info['0']['0']}}" class="btn btn-danger">Delete</button>
+                                    <button type="submit" name="delete" value="u{{info[0][0]}}" class="btn btn-danger">Delete</button>
                                 </div>  
                             </form>  
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -42,9 +42,9 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-work">
-                    <a href="">{{info['0']['0']}}</a><br/>
-                    <a href="">{{info['0']['1']}}</a><br/>
-                    <a href="">{{info['0']['2']}}</a>
+                    <a href="">{{info[0][0]}}</a><br/>
+                    <a href="">{{info[0][1]}}</a><br/>
+                    <a href="">{{info[0][2]}}</a>
                     
                 </div>
             </div>
@@ -55,11 +55,11 @@
                         {% for i in pet_perso %}
                                 <div class="row">
                                     <div class="panel panel-default" style="width: 90%;">
-                                        <div class="panel-heading">{{pet_perso[i]['1']}}</div>
-                                        <div class="panel-body">{{pet_perso[i]['4']}}
+                                        <div class="panel-heading">{{pet_perso[i][1]}}</div>
+                                        <div class="panel-body">{{pet_perso[i][4]}}
                                             <form method="POST" action = "" class="box">
                                                 <div class="input-group-append">
-                                                    <button type="submit" name="delete" value="p{{pet_perso[i]['0']}}" class="btn btn-danger" style = "position:relative; left:290px;">Delete</button>
+                                                    <button type="submit" name="delete" value="p{{pet_perso[i][0]}}" class="btn btn-danger" style = "position:relative; left:290px;">Delete</button>
                                                 </div>  
                                             </form>
                                         </div>
@@ -73,11 +73,11 @@
                             {% for j in com_perso %}
                             <div class="row">
                                 <div class="panel panel-default" style="width: 90%;">
-                                    <div class="panel-heading">{{com_perso[j]['1']}}</div>
-                                    <div class="panel-body">{{com_perso[j]['4']}}
+                                    <div class="panel-heading">{{com_perso[j][1]}}</div>
+                                    <div class="panel-body">{{com_perso[j][4]}}
                                         <form method="POST" action = "" class="box">
                                             <div class="input-group-append">
-                                                <button type="submit" name="delete" value="c{{com_perso[j]['0']}}" class="btn btn-danger" style = "position:relative; left:290px;">Delete</button>
+                                                <button type="submit" name="delete" value="c{{com_perso[j][0]}}" class="btn btn-danger" style = "position:relative; left:290px;">Delete</button>
                                             </div>  
                                         </form>  
                                     </div>

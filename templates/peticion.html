@@ -9,19 +9,19 @@
               <div class="post-container">
                 <div class="post-detail">
                   <div class="user-info">
-                    <h5><a class="profile-link" style="color:#3D5A80">{{response['0']['4']}}</a></h5>
+                    <h5><a class="profile-link" style="color:#3D5A80">{{response[0][4]}}</a></h5>
                   </div>
                   <div class="line-divider"></div>
                   <div class="post-text">
-                    <p>{{response['0']['1']}} <i class="em em-anguished"></i> <i class="em em-anguished"></i> <i class="em em-anguished"></i></p>
+                    <p>{{response[0][1]}} <i class="em em-anguished"></i> <i class="em em-anguished"></i> <i class="em em-anguished"></i></p>
                   </div>
                   <div class="line-divider"></div>
 
                   {% for j in response %}
-                    {% if j != '0' %}
+                    {% if j != 0 %}
                       <div class="post-comment">
                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="profile-photo-sm">
-                        <p><a class="profile-link" style="color:#3D5A80">{{response[j]['3']}} </a><br> {{response[j]['1']}} </p>
+                        <p><a class="profile-link" style="color:#3D5A80">{{response[j][3]}} </a><br> {{response[j][1]}} </p>
                       </div>
                     {% endif %}
                   {% endfor %}
