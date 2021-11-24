@@ -1,6 +1,11 @@
 from os import getcwd
 import pyodbc
 import datetime
+import shutil
+
+original = r'C:\Users\Ron\Desktop\Test_1\products.csv'
+target = r'C:\Users\Ron\Desktop\Test_2\new_products.csv'
+
 
 DRIVER_NAME = "Microsoft Access Driver (*.mdb, *.accdb)"
 DB_PATH = getcwd() 
@@ -8,10 +13,13 @@ DB_PATH = getcwd()
 if DB_PATH[len(DB_PATH)-5:] == "Zamna": # Si se está ejecutando en app.py se utiliza base de datos Zamna 
     DB_PATH = DB_PATH + "\database/Zamna.accdb"
 else: 
+    original = DB_PATH + r'/empty_database/Pruebas.accdb' # Base de datos original
     DB_PATH = DB_PATH + "/Pruebas.accdb" # Si se está ejecutando desde unitest se abre la base de datos de prueba
+    shutil.copyfile(original, DB_PATH) # Se copia la base de datos de Prueba.accdb original 
 
 conn = pyodbc.connect("Driver={%s};DBQ=%s;" % (DRIVER_NAME, DB_PATH))
 cursor = conn.cursor()
+
 
 
 #Query para crear un usuario nuevo (VERIFICADO)
@@ -218,7 +226,8 @@ def categorias():
 #Query para borrar un usuario (VERIFICADO)
 def duser(user):
 
-    peticiones = pet_per(user)
+    peticiones = str(pet_per(user))
+    peticiones = eval(peticiones)
 
     for i in range(len(peticiones)):
         cursor.execute(u"DELETE * FROM Peticion WHERE IDPet = ?", int(peticiones[i][0]))
@@ -232,7 +241,7 @@ def duser(user):
 
     return "True"
 
+def shutdown_server():
+    cursor.close()
+    conn.close()
 
-#print(confirm("daniel", "1234mayuscula"))
-
-#print(type(eval(peticiones())))
