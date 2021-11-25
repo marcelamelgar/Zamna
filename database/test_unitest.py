@@ -5,15 +5,16 @@ from base import *
 
 # https://docs.python.org/3/library/unittest.html  referencias 
 
+def test_nuser():
+    result = nuser("JoseWolf", "wolf@ufm.edu", "12345#")
+    expected = "True"
+    #self.assertEqual(result, expected)
+    assert result == expected,"test failed"
 
-@pytest.mark.usefixtures("db_class")
 class TestingUser(unittest.TestCase):
     
     # Crear un nuevo usuario 
-    def test_nuser(self):
-        result = nuser("JoseWolf", "wolf@ufm.edu", "12345#")
-        expected = "True"
-        self.assertEqual(result, expected)
+    
 
 
     # Se verifica la creación de un usuario 
