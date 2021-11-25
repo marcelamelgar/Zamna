@@ -10,6 +10,8 @@ target = r'C:\Users\Ron\Desktop\Test_2\new_products.csv'
 DRIVER_NAME = "Microsoft Access Driver (*.mdb, *.accdb)"
 DB_PATH = getcwd() 
 
+print(DB_PATH, "<<<<<<<<<------------------- esta es la ruta ")
+
 if DB_PATH[len(DB_PATH)-5:] == "Zamna": # Si se está ejecutando en app.py se utiliza base de datos Zamna 
     DB_PATH = DB_PATH + "\database/Zamna.accdb"
 else: 
