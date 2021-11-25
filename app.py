@@ -151,9 +151,4 @@ def reset():
 
 if __name__ == "__main__":
     DB_PATH = getcwd() 
-
-    if DB_PATH[len(DB_PATH)-1:] == "s":
-        from waitress import serve
-        serve(app, host="0.0.0.0", port=8080)
-    else:
-        app.run(host="0.0.0.0",debug=True)
+    app.run(host="0.0.0.0",debug=True)
