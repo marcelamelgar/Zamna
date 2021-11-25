@@ -2,3 +2,4 @@ Flask
 pyodbc
 requests
 pytest
+selenium
