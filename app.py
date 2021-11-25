@@ -144,6 +144,15 @@ def home_cate(categoria):
         categoria=categoria, 
         categorias = categories)
 
+@app.route("/logout", methods=["GET", "POST"]) 
+def logout():
+    global current_user
+
+    current_user = ""
+
+    return redirect(url_for('login'))
+
+
 @app.route("/rpassword", methods=["GET", "POST"]) 
 def reset():
     return render_template("rpassword.html")
