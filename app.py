@@ -52,6 +52,7 @@ def nueva_peticion():
     global current_user
 
     if request.method == "POST":
+        print(request.form)
         categ = request.form['categ']
         comment = request.form['comment']
         npeti(comment, categ, current_user)

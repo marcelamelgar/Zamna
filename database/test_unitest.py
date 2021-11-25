@@ -12,13 +12,13 @@ def test_nuser():
     assert result == expected,"test failed"
 
 # Se verifica la creación de un usuario 
-def test_confirm(self): 
+def test_confirm(): 
     result = confirm('cruz', "1234") 
     expected = "True"
     assert result == expected,"test failed"
     
 # Se verifica la información de un usuario 
-def test_infoUser(self): 
+def test_infoUser(): 
     result = infoUser("cruz")
     expected = "{0: {0: 'cruz', 1: 'cldelcid@ufm.edu', 2: '1234'}}"
     assert result == expected,"test failed"
@@ -32,7 +32,7 @@ def test_npeti():
 # Se piden todas las peticiones
 def test_peticiones(): 
     result = peticiones()
-    assert result == True,"test true" 
+    assert result, "test true" 
 
 # Se solicitan las  peticiones por clasificación 
 def test_pet_esp():
