@@ -14,6 +14,10 @@ print(DB_PATH, "<<<<<<<<<------------------- esta es la ruta ")
 
 if DB_PATH[len(DB_PATH)-5:] == "Zamna": # Si se está ejecutando en app.py se utiliza base de datos Zamna 
     DB_PATH = DB_PATH + "\database/Zamna.accdb"
+
+elif DB_PATH[len(DB_PATH)-1:] == "s":
+    DB_PATH = DB_PATH + "\database/Zamna.accdb"
+    
 else: 
     original = DB_PATH + r'/empty_database/Pruebas.accdb' # Base de datos original
     DB_PATH = DB_PATH + "/Pruebas.accdb" # Si se está ejecutando desde unitest se abre la base de datos de prueba
