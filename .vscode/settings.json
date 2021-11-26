@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/0aa457be-ef8d-43ae-a7b3-523da67cd298/resourceGroups/Default-Web-WestUS/providers/Microsoft.Web/sites/ZamnaWeb",
+    "appService.deploySubpath": "."
+}
