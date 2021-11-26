@@ -10,7 +10,7 @@ Zamna es una pagina web en la que usuarios pueden interactuar entre si, en busqu
 
 # Tests
 - Unit Testing -> pytests
-- Integration Testing 
+- Integration Testing -> newman
 - System Testing -> Selenium
 
 # Continuos Integration
